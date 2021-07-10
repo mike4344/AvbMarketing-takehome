@@ -27,7 +27,14 @@ export default function Contacts() {
         }
     },[currentPage])
 	return (
-		<div className=''>
+		<div className='contact_container'>
+            <div>
+                <h1>Contact</h1>
+                <div className='blue circle large'>
+                    <div className='vertical_white_line' />
+                    <div className='horizontal_white_line' />
+                </div>
+            </div>
             {/* check if fetch request is returned if so map through the objects */}
             {loading && 'Loading...'}
             {!loading && contactList.map(contact =>{
