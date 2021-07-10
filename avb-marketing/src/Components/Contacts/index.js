@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import Contact from "../Contact"
 
 export default function Contacts() {
     const [contactList, setContactList] = useState([])
@@ -30,9 +31,9 @@ export default function Contacts() {
             {/* check if fetch request is returned if so map through the objects */}
             {loading && 'Loading...'}
             {!loading && contactList.map(contact =>{
-                
+                {/* create contact components and pass through the contacts info to the component */}
+                return <Contact contact={contact} />
             })}
-            {/* create contact components and pass through the contacts info to the component */}
             {/* Onclick setting currentContact */}
 		</div>
 	);
