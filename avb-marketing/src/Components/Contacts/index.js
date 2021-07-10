@@ -32,9 +32,8 @@ export default function Contacts() {
             {loading && 'Loading...'}
             {!loading && contactList.map(contact =>{
                 {/* create contact components and pass through the contacts info to the component */}
-                return <Contact contact={contact} />
+                return <Contact contact={contact} key={`contactId: ${contact.id}`}/>
             })}
-            {/* Onclick setting currentContact */}
 		</div>
 	);
 }

@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from "react";
-import { useContactContext } from "../../../Context/currentContactContext";
+import { useContactContext } from "../../Context/currentContactContext";
 
-export default function Contact({contact}) {
+export default function Contact({contact, key}) {
 const {currentContact, setCurrentContact} = useContactContext()
 
 	return (
-		<div onClick={setCurrentContact(contact)}>
-
+		<div className={`contact ${currentContact.id === contact.id ? 'selected' : ''}`} key={key} onClick={setCurrentContact(contact)}>
+            `${contact.firstName} ${contact.lastName}`
 		</div>
 	)
 }
