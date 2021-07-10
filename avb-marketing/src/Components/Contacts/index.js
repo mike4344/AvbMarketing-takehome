@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from "react";
 import Contact from "../Contact"
+import useContactContext from "../../Context/currentContactContext"
+
 
 export default function Contacts() {
+    const {changesCommitted} = useContactContext()
     const [contactList, setContactList] = useState([])
-    const [currentContact, setCurrentContact] = useState({})
     const [currentPage, setCurrentPage] = useState(1)
     const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(null)
     // Fetch list of current contacts
     useEffect(() =>{
         fetch(`https://avb-contacts-api.herokuapp.com/contacts/paginated?page=${currentPage}&itemsPerPage=20`)
@@ -23,9 +24,8 @@ export default function Contacts() {
         .finally(() => setLoading(false))
         return () => {
             setLoading(true)
-            setError(null)
         }
-    },[currentPage])
+    },[currentPage, changesCommitted])
 	return (
 		<div className='contact_container'>
             <div>

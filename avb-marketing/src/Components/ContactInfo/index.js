@@ -1,17 +1,27 @@
 import React, {useState} from "react";
 import EmailList from "../EmailList"
 import useContactContext from "../../Context/currentContactContext"
+import ConfirmationModal from "../ConfirmationModal";
 
 export default function ContactInfo() {
-	const {contactContext, isModified, setIsModified} = useContactContext()
-	const [firstName, setFirstName] = useState(contactContext.firstName)
-	const [lastName, setLastName] = useState(contactContext.lastName)
-	const [emailList, setEmailList] = useState([...contactContext.email])
+	const {currentContact, isModified, setIsModified, setStagingContact, isNewContact} = useContactContext()
+	const [firstName, setFirstName] = useState(currentContact.firstName)
+	const [lastName, setLastName] = useState(currentContact.lastName)
+	const [emailList, setEmailList] = useState([...currentContact.email])
 	useEffect(()=>{
-		if(firstName !== contactContext.firstName || lastName !== contactContext.lastName){
+		if(firstName !== currentContact.firstName || lastName !== currentContact.lastName){
 			 setIsModified(true)
-		} else if (emailList.length !== contactContext.emails.length || emailList[emailList.length - 1] !== contactContext.emails[emailList.length - 1]){
+			 setStagingContact(contact => {
+				 contact.firstName = firstName
+				 contact.lastName = lastName
+				 return contact
+			 })
+		} else if (emailList.length !== currentContact.emails.length || emailList[emailList.length - 1] !== contactContext.emails[emailList.length - 1]){
 			setIsModified(true)
+			setStagingContact(contact=> {
+				contact.emails=[...emailList]
+				return contact
+			})
 		} else {
 			setIsModified(false)
 		}
@@ -29,20 +39,20 @@ export default function ContactInfo() {
 			</div>
 			<EmailList emailList={emailList} setEmailList={setEmailList} />
 			<div className="contact_update-container">
-				<button className='contact_delete'
-				type="button"
-				onClick={handleDeleteContact}
-				>Delete</button>
+
+					<ConfirmationModal classList='contact_delete'
+						purpose='delete'
+						disabled={false}
+					/>
 				<div className="contact_update_save_container">
-					<button className={`contact_cancel ${isModified? 'active' : ''}`}
-					type="button"
-					onClick={handleCancelContact}
-					>Cancel</button>
-					<button
-					className={`contact_save ${isModified? 'active' : ''}`}
-					type="button"
-					onClick={handleSaveContact}
-					>Save</button>
+					<ConfirmationModal classList={`contact_cancel ${isModified? 'active' : ''}`}
+						purpose='cancel'
+						disabled={!isModified && !isNewContact}
+					/>
+					<ConfirmationModal classList={`contact_save ${isModified? 'active' : ''}`}
+						purpose='save'
+						disabled={!isModified && !isNewContact && firstName === '' && lastName === ''}
+					/>
 				</div>
 			</div>
 		</div>
