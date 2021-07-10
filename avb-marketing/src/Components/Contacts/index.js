@@ -14,8 +14,8 @@ export default function Contacts() {
             if (response.ok) return response.json()
             throw response
         })
-        .then(contacts => {
-            setContactList(contacts)
+        .then(data => {
+            setContactList(data.contacts)
         })
         .catch(error =>{
             throw new Error(`There was the following error: ${error}`)

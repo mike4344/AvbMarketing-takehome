@@ -3,9 +3,9 @@ import EmailList from "../EmailList"
 import useContactContext from "../../Context/currentContactContext"
 
 export default function ContactInfo() {
-
-	const [firstName, setFirstName] = useState('')
-	const [lastName, setLastName] = useState('')
+	const {contactContext} = useContactContext()
+	const [firstName, setFirstName] = useState(contactContext.firstName)
+	const [lastName, setLastName] = useState(contactContext.lastName)
 	return (
 		<div className=''>
 			<div className="contact_name_container">

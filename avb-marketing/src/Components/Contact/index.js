@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { useContactContext } from "../../Context/currentContactContext";
 
 export default function Contact({contact, key}) {
