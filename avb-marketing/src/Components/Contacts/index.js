@@ -4,33 +4,35 @@ import {useContactContext} from "../../Context/currentContactContext"
 
 
 export default function Contacts() {
-    const {changesCommitted} = useContactContext()
+    const {changesCommitted, setIsNewContact, setCurrentContact} = useContactContext()
     const [contactList, setContactList] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
     const [loading, setLoading] = useState(true)
     // Fetch list of current contacts
-    useEffect(() =>{
 
+    let handleNewContact = () => {
+        setIsNewContact(true)
+        setCurrentContact({firstName:'', lastName:'', emails: []})
+    }
+
+    useEffect(() =>{
         fetch(`https://avb-contacts-api.herokuapp.com/contacts/paginated?page=${currentPage}&itemsPerPage=20`)
         .then(response=> response.ok ? response.json() : response.status)
         .then(data => {
             setContactList(data.contacts)
-            return 'Contact Set'
+            setLoading(false)
         })
-        .then(success => success ? setLoading(false) : console.log(success))
         .catch(error =>{
             throw new Error(`There was the following error: ${error}`)
         })
-        //.finally(() => setLoading(false))
-        // return () => {
-        //     setLoading(true)
-        // }
+
     },[currentPage, changesCommitted])
+
 	return (
 		<div className='contact_container'>
             <div>
                 <h1>Contact</h1>
-                <div className='blue circle large'>
+                <div className='blue circle large' onClick={handleNewContact}>
                     <div className='vertical_white_line' />
                     <div className='horizontal_white_line' />
                 </div>

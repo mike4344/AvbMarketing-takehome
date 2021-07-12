@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="app_container">
       <Contacts />
-      {<ContactInfo />}
+      {currentContact && <ContactInfo />}
     </div>
   );
 }

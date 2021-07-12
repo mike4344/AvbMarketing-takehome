@@ -22,8 +22,30 @@ code {
 }
 .circle{
   border-radius: 50%;
+  position: relative;
 }
 .small {
   height: 24px;
   width: 24px;
+}
+.large {
+  height: 32px;
+  width: 32px;
+}
+.vertical_white_line{
+width: 2px;
+height: 80%;
+background-color: white;
+position: absolute;
+right: 48%;
+top: 12%;
+}
+.horizontal_white_line{
+  height: 2px;
+  width: 80%;
+  background-color: white;
+  position: absolute;
+  top: 48%;
+  right: 12%;
+
 }

@@ -1,22 +1,18 @@
 import React, {useState, useEffect} from "react";
-import EmailList from "../EmailList"
 import {useContactContext} from "../../Context/currentContactContext"
 import ConfirmationModal from "../ConfirmationModal";
 
 export default function ContactInfo() {
-	const {currentContact, isModified, setIsModified, setStagingContact, isNewContact} = useContactContext()
+	const {currentContact, isModified, isNewContact} = useContactContext()
 	const [firstName, setFirstName] = useState('')
 	const [lastName, setLastName] = useState('')
 	const [emailList, setEmailList] = useState([])
 
 
 	const [addingEmail, setAddingEmail]= useState(false)
-	const [emailToAdd, setEmailToAdd]= useState(false)
+	const [emailToAdd, setEmailToAdd]= useState('')
 	const [emailTarget, setEmailTarget] = useState('')
 
-	const emailListAddHandler = () =>{
-		setEmailList(prevEmailList => [...prevEmailList, emailToAdd])
-	}
 	const emailListRemoveHandler = () => {
 		setEmailList(prevEmailList => prevEmailList.filter(email => email !== emailTarget))
 	}
@@ -25,32 +21,11 @@ export default function ContactInfo() {
 		if (currentContact){
 			setFirstName(currentContact.firstName)
 			setLastName(currentContact.lastName)
-			setEmailList([...currentContact.emails])
-			setEmailToAdd(false)
+			setEmailList( currentContact.emails?.length > 0 ? [...currentContact.emails] : currentContact.emails)
+			setEmailToAdd('')
 		}
 	}, [currentContact])
 
-	// useEffect(()=>{
-	// 	if (currentContact){
-	// 	if(firstName !== currentContact.firstName || lastName !== currentContact.lastName){
-	// 		 setIsModified(true)
-	// 		 setStagingContact(contact => {
-	// 			 contact.firstName = firstName
-	// 			 contact.lastName = lastName
-	// 			 return contact
-	// 		 })
-	// 	} else if (emailList.length !== currentContact.emails.length || emailList[emailList.length - 1] !== currentContact.emails[emailList.length - 1]){
-	// 		setIsModified(true)
-	// 		setStagingContact(contact=> {
-	// 			contact.emails=[...emailList]
-	// 			return contact
-	// 		})
-	// 	} else {
-	// 		setIsModified(false)
-	// 	}
-
-	// }
-	// },[firstName, lastName, emailList])
 	return (
 		<div className=''>
 			<div className="contact_name_container">
@@ -95,7 +70,7 @@ export default function ContactInfo() {
 				onChange={event => setEmailToAdd(event.target.value)}
 				/>
 			</label>
-			<button className='contact_save' onClick={emailListAddHandler}>confirm</button>
+			<button className='contact_save' disabled={emailList.includes(emailToAdd)} onClick={()=>setEmailList(prevEmailList => [...prevEmailList, emailToAdd])}>confirm</button>
 			</div>}
 		</div>
 			<div className="contact_update-container">
@@ -107,12 +82,13 @@ export default function ContactInfo() {
 				<div className="contact_update_save_container">
 					<ConfirmationModal classList={`contact_cancel ${isModified? 'active' : ''}`}
 						purpose='cancel'
-						disabled={((firstName === currentContact.firstName && lastName === currentContact.lastName && !emailToAdd && emailList.length === currentContact.emails.length ) || isNewContact)}
+						disabled={!(isNewContact || !(firstName === currentContact.firstName && lastName === currentContact.lastName && !emailToAdd && emailList.length === currentContact.emails.length ))}
 					/>
+					{console.log(isNewContact)}
 					<ConfirmationModal classList={`contact_save ${isModified? 'active' : ''}`}
 						purpose='save'
 						currentChanges = {{firstName, lastName, emails:emailList}}
-						disabled={((firstName === currentContact.firstName && lastName === currentContact.lastName && !emailToAdd && emailList.length === currentContact.emails.length ) || isNewContact)}
+						disabled={((firstName === currentContact.firstName && lastName === currentContact.lastName && !emailToAdd && emailList.length === currentContact.emails.length ))}
 					/>
 				</div>
 			</div>

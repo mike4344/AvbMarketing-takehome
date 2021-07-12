@@ -5,21 +5,13 @@ const contactContext = React.createContext();
 
 export function ContactProvider({ children }) {
   const [currentContact, setCurrentContact] = useState(false);
-  const [isModified, setIsModified] = useState(false);
-  const [isNewContact, setNewContact] = useState(false)
-  const [stagingContact, setStagingContact] = useState()
+  const [isNewContact, setIsNewContact] = useState(false)
   const [changesCommitted, setChangesCommitted] = useState(false)
-  console.log(currentContact, 'context')
-  useEffect(() =>{
-    setStagingContact({...currentContact})
-  },[currentContact])
 
   return (
     <>
       <contactContext.Provider value={{currentContact, setCurrentContact,
-        isModified, setIsModified,
-        isNewContact, setNewContact,
-        stagingContact, setStagingContact,
+        isNewContact, setIsNewContact,
         changesCommitted, setChangesCommitted
 }}>
         {children}
