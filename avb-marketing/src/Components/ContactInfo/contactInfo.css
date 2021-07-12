@@ -1,0 +1,200 @@
+.contact_info_container{
+    display:flex;
+
+}
+
+.name_label{
+    font-family: Lato;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555555;
+
+
+}
+
+.email_header{
+    font-family: Lato;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #555555;
+
+
+}
+
+.input_name{
+    display:flex;
+    flex-direction:column;
+}
+.input {
+    width: 345px;
+    height: 36px;
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    border: 1px solid #D7E7FF
+
+}
+.contact_info_wrapper{
+    padding: 30px;
+    margin-top: 60px;
+    position: relative;
+}
+.add_email_container{
+    display: flex;
+    align-items: center;
+    padding:2px;
+}
+.text_add{
+    margin-left: 5px;
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #579AFF;
+
+
+}
+.delete_email{
+    padding-left: 10px;
+}
+
+
+.contact_update_save_container{
+    display: flex;
+    justify-content: space-between;
+    width:35%;
+}
+
+.contact_update-container{
+    width: 95%;
+    bottom: 1%;
+    right: 1%;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-self: flex-end;
+    padding: 20px
+}
+.contact_save{
+    height: 36px;
+    width: 120px;
+    left: 0px;
+    top: 0px;
+    border-radius: 0px;
+    background-color: #579AFF;
+    font-family: Lato;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #FFFFFF;
+    border: none;
+    text-transform: capitalize;
+
+}
+.contact_delete{
+    height: 36px;
+    width: 120px;
+    left: 0px;
+    top: 0px;
+    border-radius: 0px;
+    background-color: #FF5757;
+    font-family: Lato;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #FFFFFF;
+    border: none;
+    text-transform: capitalize;
+
+}
+.contact_cancel{
+    height: 36px;
+    width: 120px;
+    left: 0px;
+    top: 0px;
+    border-radius: 0px;
+    font-family: Lato;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+    text-transform: capitalize;
+    border: 1px solid #579AFF;
+    color: #000000;
+    background-color:white;
+
+}
+.disabled{
+    height: 36px;
+    width: 120px;
+    left: 0px;
+    top: 0px;
+    border-radius: 0px;
+    font-family: Lato;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+    text-transform: capitalize;
+    opacity: 50%;
+}
+.email_save{
+    margin-left: 10px;
+    height: 36px;
+    width: 120px;
+    left: 0px;
+    top: 0px;
+    border-radius: 0px;
+    background-color: #579AFF;
+    font-family: Lato;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #FFFFFF;
+    border: none;
+    text-transform: capitalize;
+}
+
+.contact_email{
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    display: flex;
+    color: #555555;
+    width: 40%;
+    padding-top: 10px;
+
+}

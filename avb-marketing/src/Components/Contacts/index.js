@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import Contact from "../Contact"
 import {useContactContext} from "../../Context/currentContactContext"
-
+import './contacts.css'
 
 export default function Contacts() {
     const {changesCommitted, setIsNewContact, setCurrentContact} = useContactContext()
@@ -30,8 +30,8 @@ export default function Contacts() {
 
 	return (
 		<div className='contact_container'>
-            <div>
-                <h1>Contact</h1>
+            <div className='contact_header'>
+                <p>Contacts</p>
                 <div className='blue circle large' onClick={handleNewContact}>
                     <div className='vertical_white_line' />
                     <div className='horizontal_white_line' />
@@ -41,7 +41,7 @@ export default function Contacts() {
             {loading && 'Loading...'}
             {!loading && contactList.map(contact =>{
                 {/* create contact components and pass through the contacts info to the component */}
-                return <Contact contact={contact} key={`contactId: ${contact.id}`}/>
+                return <Contact contact={contact} key={`contactId : ${contact.id}`} contactKey={`contactId: ${contact.id}`}/>
             })}
 		</div>
 	);

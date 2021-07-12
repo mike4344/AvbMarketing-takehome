@@ -20,8 +20,10 @@
 
 #modal-content {
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(255, 255, 255, 0.7);
+    height: 50vh;
 }
 .ReactModalPortal {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(104, 104, 104, 0.7);
+    height: 50vh
 }

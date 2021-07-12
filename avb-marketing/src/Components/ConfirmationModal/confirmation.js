@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from "react";
 import { useContactContext } from "../../Context/currentContactContext";
-
+import './confirmation.css'
 
 export default function Confirmation({purpose, currentChanges, onClose}) {
     const {currentContact,setCurrentContact, isNewContact, setIsNewContact, setChangesCommitted} = useContactContext()
     const [message, setMessage] = useState('')
     const [handlePurpose, setHandlePurpose] = useState(null)
-    console.log(purpose)
+
     useEffect(() => {
         switch (purpose) {
             case 'save':
@@ -57,16 +57,16 @@ export default function Confirmation({purpose, currentChanges, onClose}) {
                 }
     }, [])
     return (
-        <div className=''>
-            {message}
+        <div className='modal_container'>
+            <p className='message'>{message}</p>
             <div className= 'confirmation_button_container'>
-                <button type= 'button'
+                <button className='contact_cancel' type= 'button'
                 onClick={onClose}>
                     Cancel
                 </button>
-                <button type= 'button'
+                <button className={`contact_${purpose === 'save' ? 'save' : 'delete'}`} type= 'button'
                 onClick={handlePurpose}>
-                    {purpose === 'save'? 'Confirm Changes': purpose === 'cancel' ? 'Discard Changes?' : 'Delete Contact Permanently?'}
+                    {purpose === 'save'? 'Confirm': purpose === 'cancel' ? 'Discard' : 'Delete'}
                 </button>
             </div>
 		</div>

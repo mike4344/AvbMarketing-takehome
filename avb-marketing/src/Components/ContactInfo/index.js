@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from "react";
 import {useContactContext} from "../../Context/currentContactContext"
 import ConfirmationModal from "../ConfirmationModal";
+import './contactInfo.css'
 
 export default function ContactInfo() {
-	const {currentContact, isModified, isNewContact} = useContactContext()
+	const {currentContact, isNewContact} = useContactContext()
 	const [firstName, setFirstName] = useState('')
 	const [lastName, setLastName] = useState('')
 	const [emailList, setEmailList] = useState([])
@@ -27,16 +28,19 @@ export default function ContactInfo() {
 	}, [currentContact])
 
 	return (
-		<div className=''>
-			<div className="contact_name_container">
-				<label>First Name
-					<input type="text" name="first_name" value={firstName} onChange={event => setFirstName(event.target.value)}></input>
-				</label>
-				<label>Last Name
-					<input type="text" name="last_name" value={lastName} onChange={event => setLastName( event.target.value)}></input>
-				</label>
+		<div className='contact_info_wrapper'>
+			<div className="contact_info_container">
+				<div className='name_input'>
+					<label className="name_label">First Name</label>
+						<input className='input' type="text" name="first_name" value={firstName} onChange={event => setFirstName(event.target.value)}></input>
+				</div>
+				<div className='name_input'>
+				<label className='name_label'>Last Name</label>
+					<input className='input' type="text" name="last_name" value={lastName} onChange={event => setLastName( event.target.value)}></input>
+				</div>
 			</div>
-			<div className=''>
+			<div className='email_container'>
+				<p className='email_header'>Email</p>
 			{/* each email will have an on hover function that will make a delete button show */}
 			{currentContact && emailList.map((email, i) => (
 				<div key={`email: ${i}`} className={`contact_email ${email === emailTarget ? 'selected': ''}`}
@@ -47,30 +51,32 @@ export default function ContactInfo() {
 				>
 					{email}
 					{emailTarget === email && (
-						<button className='delete_email' onClick={emailListRemoveHandler}>
+						<div className='delete_email' onClick={emailListRemoveHandler}>
 							<div className='circle red small'>
 								<div className='horizontal_white_line'/>
 							</div>
-						</button>
+						</div>
 					)}
 				</div>
 				))}
 			{!addingEmail && <div className='add_email' onClick={()=>setAddingEmail(isAdding => !isAdding)}>
-				<div className='circle blue small'>
-					<div className='vertical_white_line' />
-					<div className='horizontal_white_line' />
+				<div className='add_email_container'>
+					<div className='circle blue small'>
+						<div className='vertical_white_line' />
+						<div className='horizontal_white_line' />
+					</div>
+					<p className='text_add'>add email</p>
 				</div>
-				add email
 			</div>}
 			{addingEmail && <div className='add_email_form'>
-			<label className='label'>
-				email address
-				<input type="email"
+			<label className='email_input'>
+				<p className="name_label" >Email Address</p>
+				<input className='input' type="email"
 				value={emailToAdd}
 				onChange={event => setEmailToAdd(event.target.value)}
 				/>
 			</label>
-			<button className='contact_save' disabled={emailList.includes(emailToAdd)} onClick={()=>setEmailList(prevEmailList => [...prevEmailList, emailToAdd])}>confirm</button>
+			<button className={`email_save ${emailList.includes(emailToAdd) ? 'disabled': '' }`} disabled={emailList.includes(emailToAdd)} onClick={()=>setEmailList(prevEmailList => [...prevEmailList, emailToAdd])}>confirm</button>
 			</div>}
 		</div>
 			<div className="contact_update-container">
@@ -80,12 +86,12 @@ export default function ContactInfo() {
 						disabled={false}
 					/>
 				<div className="contact_update_save_container">
-					<ConfirmationModal classList={`contact_cancel ${isModified? 'active' : ''}`}
+					<ConfirmationModal classList={`contact_cancel`}
 						purpose='cancel'
 						disabled={!(isNewContact || !(firstName === currentContact.firstName && lastName === currentContact.lastName && !emailToAdd && emailList.length === currentContact.emails.length ))}
 					/>
-					{console.log(isNewContact)}
-					<ConfirmationModal classList={`contact_save ${isModified? 'active' : ''}`}
+
+					<ConfirmationModal classList={`contact_save`}
 						purpose='save'
 						currentChanges = {{firstName, lastName, emails:emailList}}
 						disabled={((firstName === currentContact.firstName && lastName === currentContact.lastName && !emailToAdd && emailList.length === currentContact.emails.length ))}
