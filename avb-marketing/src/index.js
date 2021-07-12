@@ -2,16 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {ContactContext} from './Context/currentContactContext'
+import {ContactProvider} from './Context/currentContactContext'
 import {ModalProvider} from './Context/Modal'
 
 ReactDOM.render(
   <React.StrictMode>
-    <ContactContext>
+    <ContactProvider>
         <ModalProvider>
           <App />
         </ModalProvider>
-    </ContactContext>
+    </ContactProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -6,7 +6,7 @@ export default function Contact({contact, key}) {
 const {currentContact, setCurrentContact, isModified} = useContactContext()
 
 	return (
-		<div className={`contact ${currentContact.id === contact.id ? 'selected' : ''}`} key={key} onClick={setCurrentContact(contact)}>
+		<div className={`contact ${currentContact.id === contact.id ? 'selected' : ''}`} key={key} onClick={()=>setCurrentContact(contact)}>
             {`${contact.firstName} ${contact.lastName}`}
 		</div>
 	)

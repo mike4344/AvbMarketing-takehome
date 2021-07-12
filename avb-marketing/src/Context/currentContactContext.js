@@ -3,13 +3,13 @@ import React, { useContext,useState, useEffect} from 'react';
 
 const contactContext = React.createContext();
 
-export function contactProvider({ children }) {
-  const [currentContact, setCurrentContact] = useState();
+export function ContactProvider({ children }) {
+  const [currentContact, setCurrentContact] = useState(false);
   const [isModified, setIsModified] = useState(false);
   const [isNewContact, setNewContact] = useState(false)
   const [stagingContact, setStagingContact] = useState()
   const [changesCommitted, setChangesCommitted] = useState(false)
-
+  console.log(currentContact, 'context')
   useEffect(() =>{
     setStagingContact({...currentContact})
   },[currentContact])

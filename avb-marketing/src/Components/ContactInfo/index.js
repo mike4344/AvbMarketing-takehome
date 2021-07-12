@@ -1,14 +1,36 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import EmailList from "../EmailList"
-import useContactContext from "../../Context/currentContactContext"
+import {useContactContext} from "../../Context/currentContactContext"
 import ConfirmationModal from "../ConfirmationModal";
 
 export default function ContactInfo() {
 	const {currentContact, isModified, setIsModified, setStagingContact, isNewContact} = useContactContext()
-	const [firstName, setFirstName] = useState(currentContact.firstName)
-	const [lastName, setLastName] = useState(currentContact.lastName)
-	const [emailList, setEmailList] = useState([...currentContact.email])
+	const [firstName, setFirstName] = useState('')
+	const [lastName, setLastName] = useState('')
+	const [emailList, setEmailList] = useState([])
+	console.log(currentContact, 'email%%%%' ,emailList)
+
+	const [addingEmail, setAddingEmail]= useState(false)
+	const [emailToAdd, setEmailToAdd]= useState('')
+	const [emailTarget, setEmailTarget] = useState('')
+
+	const emailListAddHandler =  emailToAdd =>{
+		setEmailList(prevEmailList => [...prevEmailList, emailToAdd])
+	}
+	const emailListRemoveHandler = emailToRemove => {
+		setEmailList(prevEmailList => prevEmailList.filter(email => email !== emailTarget))
+	}
+
+	useEffect(() => {
+		if (currentContact){
+			setFirstName(currentContact.firstName)
+			setLastName(currentContact.lastName)
+			setEmailList([...currentContact.emails])
+		}
+	}, [currentContact])
+
 	useEffect(()=>{
+		if (currentContact){
 		if(firstName !== currentContact.firstName || lastName !== currentContact.lastName){
 			 setIsModified(true)
 			 setStagingContact(contact => {
@@ -16,7 +38,7 @@ export default function ContactInfo() {
 				 contact.lastName = lastName
 				 return contact
 			 })
-		} else if (emailList.length !== currentContact.emails.length || emailList[emailList.length - 1] !== contactContext.emails[emailList.length - 1]){
+		} else if (emailList.length !== currentContact.emails.length || emailList[emailList.length - 1] !== currentContact.emails[emailList.length - 1]){
 			setIsModified(true)
 			setStagingContact(contact=> {
 				contact.emails=[...emailList]
@@ -26,18 +48,55 @@ export default function ContactInfo() {
 			setIsModified(false)
 		}
 
+	}
 	},[firstName, lastName, emailList])
 	return (
 		<div className=''>
 			<div className="contact_name_container">
 				<label>First Name
-					<input type="text" name="first_name" value={firstName} onChange={setFirstName(event=> event.target.value)}></input>
+					<input type="text" name="first_name" value={firstName} onChange={event => setFirstName(event.target.value)}></input>
 				</label>
 				<label>Last Name
-					<input type="text" name="last_name" value={lastName} onChange={setLastName(event=> event.target.value)}></input>
+					<input type="text" name="last_name" value={lastName} onChange={event => setLastName( event.target.value)}></input>
 				</label>
 			</div>
-			<EmailList emailList={emailList} setEmailList={setEmailList} />
+			<div className=''>
+			{/* each email will have an on hover function that will make a delete button show */}
+			{currentContact && emailList.map((email, i) => (
+				<div key={`email: ${i}`} className={`contact_email ${email === emailTarget ? 'selected': ''}`}
+				onMouseEnter={() => setEmailTarget(email)}
+				onMouseLeave={()=> {
+					if(email === emailTarget) setEmailTarget('')
+				}}
+				>
+					{email}
+					{emailTarget === email && (
+						<button className='delete_email' onClick={emailListRemoveHandler}>
+							<div className='circle red small'>
+								<div className='horizontal_white_line'/>
+							</div>
+						</button>
+					)}
+				</div>
+				))}
+			{!addingEmail && <div className='add_email' onClick={()=>setAddingEmail(isAdding => !isAdding)}>
+				<div className='circle blue small'>
+					<div className='vertical_white_line' />
+					<div className='horizontal_white_line' />
+				</div>
+				add email
+			</div>}
+			{addingEmail && <div className='add_email_form'>
+			<label className='label'>
+				email address
+				<input type="email"
+				value={emailToAdd}
+				onChange={event => setEmailToAdd(event.target.value)}
+				/>
+			</label>
+			<button className='contact_save' onClick={emailListAddHandler}>confirm</button>
+			</div>}
+		</div>
 			<div className="contact_update-container">
 
 					<ConfirmationModal classList='contact_delete'

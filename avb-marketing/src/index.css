@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/*Common shapes and colors*/
+.blue{
+  background-color: #579AFF;
+}
+.red {
+  background-color: #FF5757;
+
+}
+.circle{
+  border-radius: 50%;
+}
+.small {
+  height: 24px;
+  width: 24px;
+}

@@ -2,8 +2,8 @@ import React, {useState} from "react";
 import { useContactContext } from "../../Context/currentContactContext";
 
 
-export default function ContactInfo({purpose, setShowModal}) {
-    const {currentContact,setCurrentContact, isNewContact, setChangesCommitted} = useContactContext()
+export default function Confirmation({purpose, setShowModal}) {
+    const {currentContact,setCurrentContact, isNewContact, setChangesCommitted, setIsModified, setStagingContact} = useContactContext()
     const [message, setMessage] = useState('')
     const [handlePurpose, setHandlePurpose] = useState(null)
     switch (purpose) {

@@ -1,14 +1,11 @@
 import React, {useState} from "react";
-import { useContactContext } from "../../Context/currentContactContext";
 
-export default function EmailList({emailList, setEmailList}) {
+export default function EmailList({emailListAddHandler, emailListRemoveHandler,emailList}) {
 	const [addingEmail, setAddingEmail]= useState(false)
 	const [emailToAdd, setEmailToAdd]= useState('')
 	const [emailTarget, setEmailTarget] = useState('')
 
-	const handleAddEmail = () => {
-		setEmailList(emails => [...emails, emailToAdd])
-	}
+
 
 	return (
 		<div className=''>
@@ -22,7 +19,7 @@ export default function EmailList({emailList, setEmailList}) {
 				>
 					{email}
 					{emailTarget === email && (
-						<button className='delete_email' onClick={setEmailList(emails => emails.filter(email => email !== emailTarget))}>
+						<button className='delete_email' onClick={emailListRemoveHandler(emailTarget)}>
 							<div className='circle red'>
 								<div className='horizontal_white_line'/>
 							</div>
@@ -45,7 +42,7 @@ export default function EmailList({emailList, setEmailList}) {
 				onChange={event => setEmailToAdd(event.target.value)}
 				/>
 			</label>
-			<button className='contact_save' onClick={handleAddEmail}>confirm</button>
+			<button className='contact_save' onClick={emailListAddHandler(emailToAdd)}>confirm</button>
 			</div>}
 		</div>
 	);
